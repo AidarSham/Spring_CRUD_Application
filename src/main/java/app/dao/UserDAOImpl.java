@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Transactional(readOnly = true)
+@Transactional
 @Component
 public class UserDAOImpl implements UserDAO {
 
@@ -25,14 +25,12 @@ public class UserDAOImpl implements UserDAO {
         return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
-    @Transactional
     @Override
     public void add(User user) {
         User merge = entityManager.merge(user);
         entityManager.persist(merge);
     }
 
-    @Transactional
     @Override
     public void delete(User user) {
         User merge = entityManager.merge(user);
